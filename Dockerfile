@@ -26,6 +26,6 @@ RUN apk update && apk --no-cache add \
 
 COPY --from=build /go/bin/git-sync ./
 
-ENV GIT_SYNC_ROOT=/tmp/git
+ENV GIT_SYNC_ROOT=/root/git
 
 ENTRYPOINT ["./git-sync"]  
