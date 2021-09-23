@@ -24,17 +24,8 @@ RUN apk update && apk --no-cache add \
     openssh-client \
     git
 
-RUN addgroup -S 65533 && \
-    adduser -S 65533 -G 65533 -h /tmp
-
-RUN mkdir -m 02775 /tmp/git && chown 65533:65533 /tmp/git
-
-USER 65533:65533
-
-WORKDIR /tmp
 COPY --from=build /go/bin/git-sync ./
 
-ENV HOME=/tmp
 ENV GIT_SYNC_ROOT=/tmp/git
 
 ENTRYPOINT ["./git-sync"]  
