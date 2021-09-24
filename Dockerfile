@@ -24,7 +24,7 @@ RUN apk update && apk --no-cache add \
     openssh-client \
     git
 
-COPY --from=build /go/bin/git-sync ./
+COPY --from=build /go/bin/git-sync /
 
 RUN echo "git-sync:x:65533:65533::/tmp:/sbin/nologin" >> /etc/passwd
 RUN chmod 0666 /etc/passwd
@@ -38,4 +38,4 @@ WORKDIR /tmp
 
 ENV GIT_SYNC_ROOT=/tmp/git
 
-ENTRYPOINT ["./git-sync"]  
+ENTRYPOINT ["/git-sync"]  
