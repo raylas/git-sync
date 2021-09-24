@@ -26,8 +26,16 @@ RUN apk update && apk --no-cache add \
 
 COPY --from=build /go/bin/git-sync ./
 
-RUN mkdir /root/git
+RUN echo "git-sync:x:65533:65533::/tmp:/sbin/nologin" >> /etc/passwd
+RUN chmod 0666 /etc/passwd
+RUN echo "git-sync:x:65533:git-sync" >> /etc/group
+RUN mkdir -m 02775 /tmp/git && chown 65533:65533 /tmp/git
 
-ENV GIT_SYNC_ROOT=/root/git
+USER 65533:65533
+
+ENV HOME=/tmp
+WORKDIR /tmp
+
+ENV GIT_SYNC_ROOT=/tmp/git
 
 ENTRYPOINT ["./git-sync"]  
