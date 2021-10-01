@@ -17,6 +17,7 @@ RUN go build -o /go/bin/git-sync ./cmd/git-sync/main.go
 FROM alpine:3.14 as app
 
 RUN apk update && apk --no-cache add \
+    coreutils \
     ca-certificates \
     bash \
     curl \
